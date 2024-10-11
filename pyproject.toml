@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "text-ai-agent"
+version = "0.1.0"
+description = ""
+authors = ["Connor (Cub) <connor@cubdigital.co.nz>"]
+readme = "README.md"
+packages = [{ include = "text_agent" }]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+langgraph = "^0.2.35"
+langchain-openai = "^0.2.2"
+langchain = "^0.3.3"
+langchain-core = "^0.3.10"
+python-dotenv = "^1.0.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+test = "text_agent.agent:test"
