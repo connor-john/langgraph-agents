@@ -1,10 +1,10 @@
 [tool.poetry]
-name = "text-ai-agent"
+name = "langgraph-agents"
 version = "0.1.0"
 description = ""
 authors = ["Connor (Cub) <connor@cubdigital.co.nz>"]
 readme = "README.md"
-packages = [{ include = "text_agent" }]
+packages = [{ include = "agents" }]
 
 [tool.poetry.dependencies]
 python = "^3.9"
@@ -21,4 +21,4 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
-test = "text_agent.agent:test"
+text_agent_test = "agents.text_agent:test"
