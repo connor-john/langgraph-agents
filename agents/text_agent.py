@@ -21,7 +21,7 @@ class State(TypedDict):
     progress: str
 
 
-LLM = ChatOpenAI(model="gpt-4-0125-preview", temperature=0)
+LLM = ChatOpenAI(model="gpt-4o-mini", temperature=0)
 
 
 def update_progress(state: State, message: str) -> State:
@@ -49,7 +49,7 @@ def entity_extraction_node(state: Annotated[State, "NodeState"]):
     state = update_progress(state, "Extracting entities...")
     prompt = PromptTemplate(
         input_variables=["text"],
-        template="Extract all the entities (Person, Organization, Location) from the following text. Provide the result as a comma-separated list.\n\nText:{text}\n\nEntities:",
+        template="Extract all the entities (Person, Organisation, Location) from the following text. Provide the result as a comma-separated list.\n\nText:{text}\n\nEntities:",
     )
     message = HumanMessage(content=prompt.format(text=state["text"]))
     entities = LLM.invoke([message]).content.strip().split(", ")
@@ -57,17 +57,17 @@ def entity_extraction_node(state: Annotated[State, "NodeState"]):
     return update_progress(state, "Entity extraction complete.")
 
 
-def summarization_node(state: Annotated[State, "NodeState"]):
-    """Summarize the text and update progress"""
+def summarisation_node(state: Annotated[State, "NodeState"]):
+    """Summarise the text and update progress"""
     state = update_progress(state, "Summarizing text...")
     prompt = PromptTemplate(
         input_variables=["text"],
-        template="Summarize the following text in one short sentence.\n\nText:{text}\n\nSummary:",
+        template="Summarise the following text in one short sentence.\n\nText:{text}\n\nSummary:",
     )
     message = HumanMessage(content=prompt.format(text=state["text"]))
     summary = LLM.invoke([message]).content.strip()
     state["summary"] = summary
-    return update_progress(state, "Summarization complete.")
+    return update_progress(state, "Summarisation complete.")
 
 
 def create_graph():
@@ -76,13 +76,13 @@ def create_graph():
     # Add nodes to the graph
     workflow.add_node("classification_node", classification_node)
     workflow.add_node("entity_extraction", entity_extraction_node)
-    workflow.add_node("summarization", summarization_node)
+    workflow.add_node("summarisation", summarisation_node)
 
     # Set up the workflow
     workflow.set_entry_point("classification_node")
     workflow.add_edge("classification_node", "entity_extraction")
-    workflow.add_edge("entity_extraction", "summarization")
-    workflow.add_edge("summarization", END)
+    workflow.add_edge("entity_extraction", "summarisation")
+    workflow.add_edge("summarisation", END)
 
     # Compile the graph
     app = workflow.compile()
