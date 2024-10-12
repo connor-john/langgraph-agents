@@ -7,14 +7,16 @@ readme = "README.md"
 packages = [{ include = "agents" }]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = ">=3.12,<3.13"
 langgraph = "^0.2.35"
 langchain-openai = "^0.2.2"
 langchain = "^0.3.3"
 langchain-core = "^0.3.10"
 python-dotenv = "^1.0.1"
 rich = "^13.9.2"
-
+langchain-community = "^0.3.2"
+duckduckgo-search = "^6.3.0"
+arxiv = "^2.1.3"
 
 [build-system]
 requires = ["poetry-core"]
@@ -24,3 +26,4 @@ build-backend = "poetry.core.masonry.api"
 text_agent_test = "agents.text_agent:test"
 travel_agent_test = "agents.travel_agent:test"
 tts_agent_test = "agents.text_to_speech_agent:test"
+research_agent_test = "agents.research_agent:test"
